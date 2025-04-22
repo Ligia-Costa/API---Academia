@@ -15,6 +15,7 @@ const listaAlunos = document.getElementById('lista-alunos');
 const status = selectStatus.value === "Ativo";
 
 async function buscarListarAlunos() {
+  console.log('oi')
   try {
     const respostaHttp = await fetch(ENDPOINT_ALUNOS);
     const alunos = await respostaHttp.json();
@@ -24,6 +25,8 @@ async function buscarListarAlunos() {
     listaAlunos.innerHTML = `<p class='text-red-500'>Erro ao carregar alunos: ${erro.message}</p>`;
   }
 };
+
+document.addEventListener('DOMContentLoaded', buscarListarAlunos);
 
 // Função para exibir os alunos
 function exibirAlunosNaTela(alunos) {
@@ -174,7 +177,7 @@ async function excluirMatricula(id) {
   };
 
   try {
-    const respostaHttp = await fetch(`${ENDPOINT_ALUNOS}/${id}`, { method: 'DELETE' });
+    const respostaHttp = await fetch(`${ENDPOINT_ACADEMIA}/${id}`, { method: 'DELETE' });
   
     const resultadoApi = await respostaHttp.json();
   
@@ -189,13 +192,14 @@ async function excluirMatricula(id) {
     alert("Erro ao excluir aluno: " + erro.message);
 };  
 
-document.addEventListener('DOMContentLoaded', buscarListarAlunos);
 
-document.querySelector('input[type="text"]').addEventListener('input', function (e) {
-  const termo = e.target.value.toLowerCase();
-  const cards = document.querySelectorAll('#lista-alunos > div');
-  cards.forEach(card => {
-    const nome = card.textContent.toLowerCase();
-    card.style.display = nome.includes(termo) ? '' : 'none';
-  });
-})};
+
+// document.querySelector('input[type="text"]').addEventListener('input', function (e) {
+//   const termo = e.target.value.toLowerCase();
+//   const cards = document.querySelectorAll('#lista-alunos > div');
+//   cards.forEach(card => {
+//     const nome = card.textContent.toLowerCase();
+//     card.style.display = nome.includes(termo) ? '' : 'none';
+//   });
+// });
+}
