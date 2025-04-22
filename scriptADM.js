@@ -41,7 +41,7 @@ function exibirAlunosNaTela(alunos) {
   if (bloqueados.length > 0) {
     listaAlunos.innerHTML += `<h3 class="text-lg font-bold mt-6 mb-2 text-red-600">Alunos Inativos (Bloqueados)</h3>`;
     bloqueados.forEach(aluno => {
-      listaAlunos.innerHTML += gerarCardAluno(aluno, true);
+      listaAlunos.innerHTML += gerarCardAluno(aluno, true); 
     });
   }
 
@@ -106,7 +106,7 @@ async function matricularAluno() {
   };
 
   try {
-    const respostaHttp = await fetch(ENDPOINT_ACADEMIA, {
+    const respostaHttp = await fetch(ENDPOINT_ALUNOS, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(novoAluno)
