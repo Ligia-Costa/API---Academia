@@ -18,6 +18,7 @@ async function buscarListarAlunos() {
   try {
     const respostaHttp = await fetch(ENDPOINT_ALUNOS);
     const alunos = await respostaHttp.json();
+    console.log(alunos)
     exibirAlunosNaTela(alunos);
   } catch (erro) {
     listaAlunos.innerHTML = `<p class='text-red-500'>Erro ao carregar alunos: ${erro.message}</p>`;
@@ -46,29 +47,6 @@ function exibirAlunosNaTela(alunos) {
     listaAlunos.appendChild(card);
   }
   lucide.createIcons();
-};
-
-//Função para mostrar o card do aluno inativo
-function gerarCardAluno(aluno, inativo = false) {
-  return `
-    <div class="bg-white p-4 rounded shadow">
-      <p><strong>Nome:</strong> ${aluno.nome}</p>
-      <p><strong>CPF:</strong> ${aluno.cpf}</p>
-      <p><strong>ID:</strong> ${aluno.id}</p>
-      <p><strong>Status:</strong> ${aluno.status}</p>
-      <div class="mt-2 flex gap-2">
-        <button onclick="editarAluno(${aluno.id}, '${aluno.nome}', '${aluno.cpf}', '${aluno.status}')" class="bg-yellow-300 hover:bg-yellow-400 px-3 py-1 rounded flex items-center gap-1">
-          <i data-lucide="edit" class="w-4 h-4"></i> Editar
-        </button>
-        <button onclick="excluirMatricula(${aluno.id})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded flex items-center gap-1">
-          <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir
-        </button>
-        ${inativo ? `<button onclick="reativarAluno(${aluno.id}, '${aluno.nome}', '${aluno.cpf}')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded flex items-center gap-1">
-          <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reativar
-        </button>` : ''}
-      </div>
-    </div>
-  `;
 };
 
 //Função para reativar aluno
