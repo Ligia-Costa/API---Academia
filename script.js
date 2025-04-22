@@ -9,28 +9,28 @@ const ENDPOINT_ALUNOS = 'https://aplica-o-2-api-bd.vercel.app/alunos/lista';
 // ];
 
 //Login para o ADM
-function mostrarLogin() {
-  document.getElementById('tela-adm').classList.remove('hidden');
-};
+// function mostrarLogin() {
+//   document.getElementById('tela-adm').classList.remove('hidden');
+// };
 
-//Função para fechar a tela do ADM
-function fecharTelaADM() {
-  document.getElementById('tela-adm').classList.add('hidden');
-  document.getElementById('senha-adm').value = '';
-  document.getElementById('erro-senha').classList.add('hidden');
-};
+// //Função para fechar a tela do ADM
+// function fecharTelaADM() {
+//   document.getElementById('tela-adm').classList.add('hidden');
+//   document.getElementById('senha-adm').value = '';
+//   document.getElementById('erro-senha').classList.add('hidden');
+// };
 
-//Função para validar a senha do ADM
-function validarSenha() {
-  const senha = document.getElementById('senha-adm').value;
-  const senhaCorreta = "adm123"; //
+// //Função para validar a senha do ADM
+// function validarSenha() {
+//   const senha = document.getElementById('senha-adm').value;
+//   const senhaCorreta = "adm123"; //
 
-  if (senha === senhaCorreta) {
-    window.location.href = "adm.html"; // redireciona para página ADM
-  } else {
-    document.getElementById('erro-senha').classList.remove('hidden');
-  };
-};
+//   if (senha === senhaCorreta) {
+//     window.location.href = "adm.html"; // redireciona para página ADM
+//   } else {
+//     document.getElementById('erro-senha').classList.remove('hidden');
+//   };
+// };
 
 // Usar teclado numérico
 function alternarTeclado() {
