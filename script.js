@@ -62,7 +62,7 @@ async function verificarCPF() {
   const cpf = document.getElementById('cpf').value.trim();
 
   if (cpf === "") {
-    alert("Por favor, informe seu CPF.");
+    exibirErro("Por favor, informe seu CPF.");
     return;
   }
 
@@ -70,20 +70,20 @@ async function verificarCPF() {
     const respostaHttp = await fetch(`${ENDPOINT_ALUNOS}`);
     if (!respostaHttp.ok) {
       console.error(`Erro ao buscar lista de alunos: ${respostaHttp.status}`);
-      alert("Erro ao verificar CPF. Tente novamente mais tarde.");
+      exibirErro("Erro ao verificar CPF. Tente novamente mais tarde.");
       return;
     }
-    const alunos = await respostaHttp.json();
 
+    const alunos = await respostaHttp.json();
     const usuario = alunos.find(aluno => aluno.cpf === cpf);
 
     if (!usuario) {
-      alert("CPF não cadastrado. Por favor, procure a administração.");
+      exibirErro("CPF não cadastrado. Por favor, procure a administração.");
       return;
     }
 
     if (usuario.status !== "Ativo") {
-      alert("Seu acesso está bloqueado. Por favor, procure a administração.");
+      exibirErro("Seu acesso está bloqueado. Por favor, procure a administração.");
       return;
     }
 
@@ -92,7 +92,7 @@ async function verificarCPF() {
 
   } catch (error) {
     console.error("Erro ao verificar CPF:", error);
-    alert("Erro ao verificar CPF. Tente novamente mais tarde.");
+    exibirErro("Erro ao verificar CPF. Tente novamente mais tarde.");
   }
 };
 
@@ -101,3 +101,15 @@ function iniciarTreino() {
   document.getElementById('tela-treino').classList.add('hidden');
   document.getElementById('tela-conclusao').classList.remove('hidden');
 };
+
+function exibirErro(mensagem) {
+  document.getElementById('tela-login').classList.add('hidden');
+  document.getElementById('tela-erro').classList.remove('hidden');
+  document.getElementById('erro-msg').textContent = mensagem;
+}
+
+function voltarLogin() {
+  document.getElementById('tela-erro').classList.add('hidden');
+  document.getElementById('tela-login').classList.remove('hidden');
+  document.getElementById('cpf').value = '';
+}
