@@ -27,24 +27,24 @@ async function buscarListarAlunos() {
 // Função para exibir os alunos
 function exibirAlunosNaTela(alunos) {
   listaAlunos.innerHTML = '';
-
-  const ativos = alunos.filter(aluno => aluno.status === "Ativo");
-  const bloqueados = alunos.filter(aluno => aluno.status === "Bloqueado");
-
-  if (ativos.length > 0) {
-    listaAlunos.innerHTML += `<h3 class="text-lg font-bold mb-2">Alunos Ativos</h3>`;
-    ativos.forEach(aluno => {
-      listaAlunos.innerHTML += gerarCardAluno(aluno);
-    });
+  for (const aluno of alunos) {
+    const card = document.createElement('div');
+    card.className = 'bg-white p-4 rounded shadow';
+    card.innerHTML = `
+      <p><strong>Nome:</strong> ${aluno.nome}</p>
+      <p><strong>CPF:</strong> ${aluno.cpf}</p>
+      <p><strong>ID:</strong> ${aluno.id}</p>
+      <div class="mt-2 flex gap-2">
+        <button onclick="editarAluno(${aluno.id}, '${aluno.nome}', '${aluno.cpf}', '${aluno.status}')" class="bg-yellow-300 hover:bg-yellow-400 px-3 py-1 rounded flex items-center gap-1">
+          <i data-lucide="edit" class="w-4 h-4"></i> Editar
+        </button>
+        <button onclick="excluirMatricula(${aluno.id})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded flex items-center gap-1">
+          <i data-lucide="trash-2" class="w-4 h-4"></i> Excluir
+        </button>
+      </div>
+    `;
+    listaAlunos.appendChild(card);
   }
-
-  if (bloqueados.length > 0) {
-    listaAlunos.innerHTML += `<h3 class="text-lg font-bold mt-6 mb-2 text-red-600">Alunos Inativos (Bloqueados)</h3>`;
-    bloqueados.forEach(aluno => {
-      listaAlunos.innerHTML += gerarCardAluno(aluno, true); 
-    });
-  }
-
   lucide.createIcons();
 };
 
@@ -106,7 +106,7 @@ async function matricularAluno() {
   };
 
   try {
-    const respostaHttp = await fetch(ENDPOINT_ALUNOS, {
+    const respostaHttp = await fetch(ENDPOINT_ACADEMIA, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(novoAluno)
