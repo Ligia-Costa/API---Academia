@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Academia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      cursor: url('https://cdn-icons-png.flaticon.com/512/1041/1041916.png') 16 16, auto; /* Ícone de barra (peso) */
+      background: linear-gradient(135deg, #7e22ce, #9333ea, #a855f7, #d946ef);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- Tela 1: Login -->
+  <div id="tela-login" class="flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-xl shadow-xl w-96">
+      <h1 class="text-center text-2xl font-bold mb-4">Bem-vindo ao Sistema:</h1>
+      <img src="../Logo - Academia.jpg" class="h-50">
+      <p class="mb-2 text-gray-600">Para entrar, digite seu CPF:</p>
+      <input type="text" maxlength="11" id="cpf" placeholder="Informe seu CPF..." class="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500">
+
+      <!-- Alternar teclado -->
+      <button onclick="alternarTeclado()" class="w-full mb-4 bg-purple-100 text-purple-800 py-1 rounded hover:bg-purple-200 transition">Usar teclado numérico</button>
+      <!-- Teclado numérico -->
+      <div id="teclado" class="grid grid-cols-3 gap-3 mb-4 hidden">
+        <template id="template-teclado">
+          <button class="bg-purple-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition"></button>
+        </template>
+        <button onclick="inserirNumero('1')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">1</button>
+        <button onclick="inserirNumero('2')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">2</button>
+        <button onclick="inserirNumero('3')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">3</button>
+        <button onclick="inserirNumero('4')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">4</button>
+        <button onclick="inserirNumero('5')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">5</button>
+        <button onclick="inserirNumero('6')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">6</button>
+        <button onclick="inserirNumero('7')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">7</button>
+        <button onclick="inserirNumero('8')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">8</button>
+        <button onclick="inserirNumero('9')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">9</button>
+        <button onclick="limparCPF()" class="bg-red-500 text-white text-xl font-bold py-3 rounded hover:bg-red-600 transition">C</button>
+        <button onclick="inserirNumero('0')" class="bg-neutral-600 text-white text-xl font-bold py-3 rounded hover:bg-purple-700 transition">0</button>
+        <button onclick="removerUltimoNumero()" class="bg-yellow-400 text-white text-xl font-bold py-3 rounded hover:bg-yellow-500 transition">←</button>
+      </div>
+
+      <button onclick="verificarCPF()" class="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Entrar</button>
+      <!-- Botão para entrar como ADM -->
+    <button onclick="mostrarLogin()" class="bg-gray-800 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition w-full mt-4">
+      Área do ADM
+    </button>   
+    <!-- Tela 4: Login do ADM -->
+<div id="tela-adm" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white p-6 rounded-xl shadow-xl w-96 text-center">
+    <h2 class="text-xl font-bold mb-4">Login do Administrador</h2>
+    <input type="password" id="senha-adm" placeholder="Digite a senha" class="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-500">
+    <p id="erro-senha" class="text-red-500 hidden mb-2">Senha incorreta!</p>
+    <div class="flex justify-between">
+      <button onclick="validarSenha()" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition">Entrar</button>
+      <button onclick="fecharTelaADM()" class="bg-gray-400 text-white py-2 px-4 rounded hover:bg-gray-500 transition">Cancelar</button>
+    </div>
+  </div>
+</div>
+ 
+    </div>
+  </div>
+
+  <!-- Tela 2: Treino do dia -->
+  <div id="tela-treino" class="hidden flex items-center justify-center h-screen">
+    <div class="bg-white p-6 rounded-xl shadow-xl w-[28rem]">
+      <h2 class="text-xl font-semibold text-center mb-4">Aqui está o seu treino para o dia de hoje!</h2>
+      <div class="flex justify-between text-sm">
+        <div>
+          <h3 class="font-bold mb-2">Superior</h3>
+          <ul class="list-disc list-inside text-gray-700">
+            <li>Exercício 1</li>
+            <li>Exercício 2</li>
+            <li>Exercício 3</li>
+            <li>Exercício 4</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Inferior</h3>
+          <ul class="list-disc list-inside text-gray-700">
+            <li>Exercício 5</li>
+            <li>Exercício 6</li>
+            <li>Exercício 7</li>
+            <li>Exercício 8</li>
+          </ul>
+        </div>
+      </div>
+      <button onclick="iniciarTreino()" class="w-full mt-6 bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Iniciar</button>
+    </div>
+  </div>
+
+  <!-- Tela 3: Conclusão -->
+  <div id="tela-conclusao" class="hidden flex items-center justify-center h-screen">
+    <div class="bg-purple-100 text-purple-800 p-10 rounded-2xl shadow-xl text-center w-96">
+      <h2 class="text-xl font-bold mb-2">"Não pare quando estiver cansado, pare quando terminar!"</h2>
+      <p class="text-sm">Tenha um excelente treino!!</p>
+      <button onclick="location.reload()" class="w-full mt-6 bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Obrigado!</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
