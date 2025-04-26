@@ -27,9 +27,7 @@ Sistema de controle de acesso para academias, com **validação de CPF**, **veri
 📦 projeto/
 ├── app.py
 ├── index.html
-├── adm.html
 ├── script.js
-├── scriptAdm.js
 ├── logo.jpg
 ├── .env
 ├── requirements.txt
