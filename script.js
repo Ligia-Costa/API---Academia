@@ -1,37 +1,6 @@
 const ENDPOINT_ACADEMIA = 'https://aplica-o-2-api-bd.vercel.app/alunos';
 const ENDPOINT_ALUNOS = 'https://aplica-o-2-api-bd.vercel.app/alunos/lista';
 
-// Lista de CPFs autorizados (simulação) - REMOVER ESTA LISTA
-// const usuariosAutorizados = [
-//   { cpf: "12345678900", pagamento: true },
-//   { cpf: "11122233344", pagamento: true },
-//   { cpf: "55566677788", pagamento: false } // pagamento pendente
-// ];
-
-//Login para o ADM
-// function mostrarLogin() {
-//   document.getElementById('tela-adm').classList.remove('hidden');
-// };
-
-// //Função para fechar a tela do ADM
-// function fecharTelaADM() {
-//   document.getElementById('tela-adm').classList.add('hidden');
-//   document.getElementById('senha-adm').value = '';
-//   document.getElementById('erro-senha').classList.add('hidden');
-// };
-
-// //Função para validar a senha do ADM
-// function validarSenha() {
-//   const senha = document.getElementById('senha-adm').value;
-//   const senhaCorreta = "adm123"; //
-
-//   if (senha === senhaCorreta) {
-//     window.location.href = "adm.html"; // redireciona para página ADM
-//   } else {
-//     document.getElementById('erro-senha').classList.remove('hidden');
-//   };
-// };
-
 // Usar teclado numérico
 function alternarTeclado() {
   const teclado = document.getElementById('teclado');
