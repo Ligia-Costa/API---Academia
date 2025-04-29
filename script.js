@@ -61,6 +61,8 @@ async function verificarCPF() {
     document.getElementById('tela-login').classList.add('hidden');
     document.getElementById('tela-treino').classList.remove('hidden');
 
+    await carregarTreinoAluno(cpf);
+
   } catch (error) {
     console.error("Erro ao verificar CPF:", error);
     exibirErro("Erro ao verificar CPF. Tente novamente mais tarde.");
@@ -158,4 +160,73 @@ function imprimirTreino() {
       </html>
   `);
   janelaImpressao.document.close();
+};
+
+// Função para buscar treino do aluno pelo CPF
+async function carregarTreinoAluno(cpf) {
+  try {
+    const respostaAlunos = await fetch(`${ENDPOINT_ALUNOS}`);
+    const alunos = await respostaAlunos.json();
+    const usuario = alunos.find(aluno => aluno.cpf === cpf);
+
+    if (!usuario) {
+      exibirErro('Aluno não encontrado.');
+      return;
+    }
+
+    const respostaTreinos = await fetch(`https://aplica-o-2-api-bd.vercel.app/alunos/${usuario.id}/treinos`);
+    const treinos = await respostaTreinos.json();
+
+    if (!Array.isArray(treinos) || treinos.length === 0) {
+      exibirErro('Nenhum treino encontrado para este aluno.');
+      return;
+    }
+
+    const treinoAtual = treinos[treinos.length - 1]; // Pega o último treino salvo
+    preencherTelaTreino(treinoAtual.exercicios);
+
+  } catch (error) {
+    console.error('Erro ao carregar treino:', error);
+    exibirErro('Erro ao buscar treino.');
+  }
+};
+
+// Função para preencher treino na tela e para imprimir
+function preencherTelaTreino(exercicios) {
+  const superiorLista = document.getElementById('lista-superior');
+  const inferiorLista = document.getElementById('lista-inferior');
+  superiorLista.innerHTML = '';
+  inferiorLista.innerHTML = '';
+
+  const printSuperior = document.getElementById('print-superior');
+  const printInferior = document.getElementById('print-inferior');
+  printSuperior.innerHTML = '';
+  printInferior.innerHTML = '';
+
+  exercicios.forEach(exercicio => {
+    const item = document.createElement('li');
+    item.textContent = `${exercicio.nome} - ${exercicio.quantidade}`;
+
+    const itemPrint = document.createElement('li');
+    itemPrint.textContent = `${exercicio.nome} - ${exercicio.quantidade}`;
+
+    if (exercicio.modalidade === 'Superior') {
+      superiorLista.appendChild(item);
+      printSuperior.appendChild(itemPrint);
+    } else if (exercicio.modalidade === 'Inferior') {
+      inferiorLista.appendChild(item);
+      printInferior.appendChild(itemPrint);
+    }
+  });
+};
+
+// Função para imprimir o treino
+function imprimirTreino() {
+  const conteudo = document.getElementById('conteudo-impressao').innerHTML;
+  const janela = window.open('', '', 'width=800,height=600');
+  janela.document.write('<html><head><title>Imprimir Treino</title></head><body>');
+  janela.document.write(conteudo);
+  janela.document.write('</body></html>');
+  janela.document.close();
+  janela.print();
 };
