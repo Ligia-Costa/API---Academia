@@ -187,72 +187,36 @@
       </div>
     </div>
 
-    <div
-      id="tela-treino"
-      class="hidden flex items-center justify-center h-screen"
-    >
-      <div class="bg-white p-6 rounded-xl shadow-xl w-[28rem]">
-        <h2 class="text-xl font-semibold text-center mb-4">
-          Aqui está o seu treino para o dia de hoje!
-        </h2>
-        <div class="flex justify-between text-sm">
-          <div>
-            <h3 class="font-bold mb-2">Superior</h3>
-            <ul class="list-disc list-inside text-gray-700">
-              <li>Exercício 1</li>
-              <li>Exercício 2</li>
-              <li>Exercício 3</li>
-              <li>Exercício 4</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="font-bold mb-2">Inferior</h3>
-            <ul class="list-disc list-inside text-gray-700">
-              <li>Exercício 5</li>
-              <li>Exercício 6</li>
-              <li>Exercício 7</li>
-              <li>Exercício 8</li>
-            </ul>
-          </div>
+      <!-- Tela 2: Treino do dia -->
+  <div id="tela-treino" class="hidden flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-xl shadow-xl w-[28rem]">
+      <h2 class="text-xl font-semibold text-center mb-4">Aqui está o seu treino para o dia de hoje!</h2>
+      <div class="flex justify-between text-sm">
+        <div>
+          <h3 class="font-bold mb-2">Superior</h3>
+          <ul id="lista-superior" class="list-disc list-inside text-gray-700"></ul>
         </div>
-        <div class="mt-6 flex justify-between">
-          <button
-            onclick="iniciarTreino()"
-            class="w-1/2 mr-2 bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition"
-          >
-            Iniciar
-          </button>
-          <button
-            onclick="imprimirTreino()"
-            class="w-1/2 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-700 transition no-print"
-          >
-            Imprimir
-          </button>
+        <div>
+          <h3 class="font-bold mb-2">Inferior</h3>
+          <ul id="lista-inferior" class="list-disc list-inside text-gray-700"></ul>
         </div>
       </div>
 
-      <div id="conteudo-impressao" class="hidden">
-        <div class="treino-container">
-          <div class="treino-grupo">
-            <div class="treino-grupo-titulo">Superior</div>
-            <ul class="treino-lista">
-              <li>Exercício 1</li>
-              <li>Exercício 2</li>
-              <li>Exercício 3</li>
-              <li>Exercício 4</li>
-            </ul>
-          </div>
-          <div class="treino-grupo">
-            <div class="treino-grupo-titulo">Inferior</div>
-            <ul class="treino-lista">
-              <li>Exercício 5</li>
-              <li>Exercício 6</li>
-              <li>Exercício 7</li>
-              <li>Exercício 8</li>
-            </ul>
-          </div>
-        </div>
+      <div class="flex gap-4 mt-6">
+        <button onclick="iniciarTreino()" class="flex-1 bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition">Iniciar</button>
+        <button onclick="imprimirTreino()" class="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Imprimir</button>
       </div>
+    </div>
+  </div>
+      <!-- Tela de impressão (oculta até imprimir) -->
+  <div id="conteudo-impressao" class="hidden">
+    <h2>Treino do Dia</h2>
+    <h3>Superior</h3>
+    <ul id="print-superior"></ul>
+
+    <h3>Inferior</h3>
+    <ul id="print-inferior"></ul>
+  </div>
     </div>
 
     <div
