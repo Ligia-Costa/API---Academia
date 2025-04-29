@@ -219,14 +219,3 @@ function preencherTelaTreino(exercicios) {
     }
   });
 };
-
-// Função para imprimir o treino
-function imprimirTreino() {
-  const conteudo = document.getElementById('conteudo-impressao').innerHTML;
-  const janela = window.open('', '', 'width=800,height=600');
-  janela.document.write('<html><head><title>Imprimir Treino</title></head><body>');
-  janela.document.write(conteudo);
-  janela.document.write('</body></html>');
-  janela.document.close();
-  janela.print();
-};
